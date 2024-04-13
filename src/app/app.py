@@ -24,30 +24,38 @@ st.markdown(
 )
 
 
-def get_response(user_query: str) -> dict:
+def get_response(user_query: str) -> str:
     """
     Gets the response from the AI model.
     Args:
         user_query (str): The user query.
     Returns:
-        dict: The response from the AI model.
+        str: The response from the AI model.
     """
-
     response = requests.post(
         API_URL,
         json={"input": {"question": user_query}},
     )
+    return response.json()["output"]["content"]
 
-    return str(response.json()["output"]["content"])
 
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-user_query = st.chat_input("Type your query here")
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-if user_query is not None and user_query != "":
-    st.session_state.chat_history.append(HumanMessage(user_query))
+if prompt := st.chat_input("What is up?"):
+    st.chat_message("user").markdown(prompt)
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
-    with st.chat_message("Human"):
-        st.markdown(user_query)
+    with st.spinner("Thinking..."):
+        try:
+            response = get_response(prompt)
+        except:
+            response = "I'm sorry, I couldn't understand your query. Please try again."
 
-    with st.chat_message("AI"):
-        ai_response = st.write(get_response(user_query))
+    with st.chat_message("assistant"):
+        st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
