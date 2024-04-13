@@ -1,5 +1,5 @@
 api-version: 2024-04-13
-location: westeurope
+location: francecentral
 name: ailytics
 properties:
   containers:
@@ -18,7 +18,7 @@ properties:
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
-    password: 
+    password: <your_password>
   restartPolicy: Never
   ipAddress:
     ports:
