@@ -20,7 +20,7 @@ properties:
           secureValue: <value>
         - name: AZURE_OPENAI_API_KEY
           secureValue: <value>
-        - name: AZURE_OPENAI_DEPLOYMENT
+        - name: AZURE_OPENAI_DEPLOYMENT_NAME
           secureValue: <value>
         - name: SQL_USERNAME
           secureValue: <value>
