@@ -1,0 +1,33 @@
+api-version: 2024-04-13
+location: francecentral
+name: ailytics
+properties:
+  containers:
+  - name: streamlitapp
+    properties:
+      image: docker.io/wiktorjakubowski/ailytics_app:latest
+      ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 2.0
+          memoryInGB: 1.5
+  imageRegistryCredentials:
+  - server: docker.io
+    username: wiktorjakubowski
+    password: <passworddockerhub>
+  restartPolicy: Never
+  ipAddress:
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP
+    type: Public
+    dnsNameLabel: ailytics #FQDN
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
