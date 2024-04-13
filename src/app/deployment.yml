@@ -1,6 +1,6 @@
 api-version: 2024-04-13
 location: westeurope
-name: aitylics
+name: ailytics
 properties:
   containers:
   - name: streamlitapp
@@ -18,7 +18,7 @@ properties:
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
-    password: <your_password>
+    password: 
   restartPolicy: Never
   ipAddress:
     ports:
