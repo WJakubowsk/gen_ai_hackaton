@@ -21,7 +21,7 @@ properties:
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
-    password: '#Neymar11'
+    password: <your_password>
   restartPolicy: Never
   ipAddress:
     ports:
@@ -34,9 +34,9 @@ properties:
   volumes: # Array of volumes available to the instances
   - name: ailytics-ssl-volume
     azureFile:
-      shareName: ailyticsfileshare  # FILE SHARE NAME
-      storageAccountName: hcktnpw2024044b4pv3 # SA NAME
-      storageAccountKey: "v3ODAaG5cqo9DEhMCN2NsYsqJ01mgMCVyCiSQyFvhSPGOEImd5UP4YMneBZ6Q1c18de1YKJbzAQR+AStnepmTg==" # SA PASSWORD FROM: az storage account keys list --account-name hcktnpw2024044b4pv3 --resource-group RESOURCE_GR_4
+      shareName:   # FILE SHARE NAME
+      storageAccountName: # SA NAME
+      storageAccountKey:  # SA PASSWORD FROM: az storage account keys list --account-name hcktnpw2024044b4pv3 --resource-group RESOURCE_GR_4
   osType: Linux
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
