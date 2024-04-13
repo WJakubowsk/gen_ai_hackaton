@@ -13,6 +13,23 @@ properties:
         requests:
           cpu: 2.0
           memoryInGB: 1.5
+      environmentVariables:
+        - name: OPENAI_API_VERSION
+          secureValue: <value>
+        - name: AZURE_OPENAI_ENDPOINT
+          secureValue: <value>
+        - name: AZURE_OPENAI_API_KEY
+          secureValue: <value>
+        - name: AZURE_OPENAI_DEPLOYMENT_NAME
+          secureValue: <value>
+        - name: SQL_USERNAME
+          secureValue: <value>
+        - name: SQL_PASSWORD
+          secureValue: <value>
+        - name: SQL_CONN_STR
+          secureValue: <value>
+        - name: API_URL
+          secureValue: <value>
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
