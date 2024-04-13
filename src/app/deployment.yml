@@ -1,6 +1,6 @@
 api-version: 2024-04-13
 location: francecentral
-name: ailytics
+name: ailyticsapp
 properties:
   containers:
   - name: streamlitapp
@@ -11,9 +11,6 @@ properties:
         protocol: TCP
       - port: 443
         protocol: TCP
-      volumeMounts: # Array of volume mounts for the instance
-      - name: ailytics-ssl-volume
-        mountPath: /mnt/letsencrypt
       resources:
         requests:
           cpu: 2.0
@@ -21,7 +18,7 @@ properties:
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
-    password: <passworddockerhub>
+    password: <password>
   restartPolicy: Never
   ipAddress:
     ports:
@@ -30,13 +27,7 @@ properties:
     - port: 80
       protocol: TCP
     type: Public
-    dnsNameLabel: ailytics #FQDN
-  volumes: # Array of volumes available to the instances
-  - name: ailytics-ssl-volume
-    azureFile:
-      shareName: ailyticsfileshare  # FILE SHARE NAME
-      storageAccountName: ailtycissa # SA NAME
-      storageAccountKey: <sapassword> # SA PASSWORD
+    dnsNameLabel: ailyticsapp
   osType: Linux
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
