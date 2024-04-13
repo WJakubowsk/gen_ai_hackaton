@@ -1,8 +1,8 @@
 FROM mambaorg/micromamba:0.15.3
 USER root
-RUN mkdir /opt/demo_azure
-RUN chmod -R 777 /opt/demo_azure
-WORKDIR /opt/demo_azure
+RUN mkdir /opt/gen_ai_hackaton
+RUN chmod -R 777 /opt/gen_ai_hackaton
+WORKDIR /opt/gen_ai_hackaton
 USER micromamba
 COPY environment.yml environment.yml
 RUN micromamba install -y -n base -f environment.yml && \
