@@ -16,13 +16,13 @@ RUN chmod -R 777 /opt/gen_ai_hackaton
 WORKDIR /opt/gen_ai_hackaton
 USER micromamba
 COPY . .
-RUN micromamba install -y -n base -f environment.yml && \
-   micromamba clean --all --yes
+RUN micromamba install -y -n base -f environment.yml
+RUN micromamba clean --all --yes
 USER root
 RUN chmod a+x run.sh run_without_ssl.sh generate_ssl.sh
 RUN touch /var/log/cron.log
 # Setup cron job
 RUN (crontab -l ; echo "0 12 12 * * /usr/bin/certbot renew --quiet && tar -cpzf /mnt/letsencrypt/etc.tar.gz -C / etc/letsencrypt/ ") | crontab
-# CMD ["./run_without_ssl.sh"]
+CMD ["./run_without_ssl.sh"]
 # CMD ["./generate_ssl.sh"]
-CMD ["./run.sh"] 
+# CMD ["./run.sh"] 
