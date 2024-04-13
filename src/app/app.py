@@ -52,7 +52,7 @@ if prompt := st.chat_input("What is up?"):
     with st.spinner("Thinking..."):
         try:
             response = get_response(prompt)
-        except Exception as e:
+        except Exception:
             response = "I'm sorry, I couldn't understand your query. Please try again."
 
     with st.chat_message("assistant"):
