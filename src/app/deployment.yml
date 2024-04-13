@@ -12,7 +12,7 @@ properties:
       - port: 443
         protocol: TCP
       volumeMounts: # Array of volume mounts for the instance
-      - name: VOLUME_NAME
+      - name: ailytics-ssl-volume
         mountPath: /mnt/letsencrypt
       resources:
         requests:
@@ -21,7 +21,7 @@ properties:
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
-    password: <your_password>
+    password: <passworddockerhub>
   restartPolicy: Never
   ipAddress:
     ports:
@@ -32,11 +32,11 @@ properties:
     type: Public
     dnsNameLabel: ailytics #FQDN
   volumes: # Array of volumes available to the instances
-  - name: VOLUME_NAME
+  - name: ailytics-ssl-volume
     azureFile:
-      shareName:  # FILE SHARE NAME
-      storageAccountName:  # SA NAME
-      storageAccountKey: # SA PASSWORD
+      shareName: ailyticsfileshare  # FILE SHARE NAME
+      storageAccountName: ailtycissa # SA NAME
+      storageAccountKey: <sapassword> # SA PASSWORD
   osType: Linux
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
