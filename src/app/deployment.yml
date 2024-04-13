@@ -11,9 +11,6 @@ properties:
         protocol: TCP
       - port: 443
         protocol: TCP
-      volumeMounts: # Array of volume mounts for the instance
-      - name: ailytics-ssl-volume
-        mountPath: /mnt/letsencrypt
       resources:
         requests:
           cpu: 2.0
@@ -31,12 +28,6 @@ properties:
       protocol: TCP
     type: Public
     dnsNameLabel: ailytics #FQDN
-  volumes: # Array of volumes available to the instances
-  - name: ailytics-ssl-volume
-    azureFile:
-      shareName: ailyticsfileshare  # FILE SHARE NAME
-      storageAccountName: ailtycissa # SA NAME
-      storageAccountKey: <sapassword> # SA PASSWORD
   osType: Linux
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
