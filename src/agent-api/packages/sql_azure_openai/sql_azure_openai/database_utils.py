@@ -1,6 +1,7 @@
 import os
-from sqlalchemy import create_engine
+
 from langchain.sql_database import SQLDatabase
+from sqlalchemy import create_engine
 
 
 class DatabaseUtils:

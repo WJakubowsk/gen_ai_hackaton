@@ -3,7 +3,6 @@ import os
 import requests
 import streamlit as st
 from dotenv import load_dotenv
-from langchain_core.messages import HumanMessage
 
 load_dotenv()
 
@@ -53,7 +52,7 @@ if prompt := st.chat_input("What is up?"):
     with st.spinner("Thinking..."):
         try:
             response = get_response(prompt)
-        except:
+        except Exception as e:
             response = "I'm sorry, I couldn't understand your query. Please try again."
 
     with st.chat_message("assistant"):
