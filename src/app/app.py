@@ -15,8 +15,11 @@ st.set_page_config(
     page_icon=":robot_face:",
 )
 
-st.title("AIlytics Chatbot 🤖")
-st.markdown("by Picipolo")
+st.title("AI analytics Chatbot 🤖")
+st.markdown("Welcome to AI-lytics: AI-powered analytics chatbot created by Picipolo!")
+st.markdown(
+    "To get started, simply type your question about the data in the database, and I'll do my best to assist you."
+)
 
 
 def get_response(user_query: str, chat_history: list) -> dict:
