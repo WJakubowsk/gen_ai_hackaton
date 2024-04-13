@@ -1,38 +1,29 @@
+api-version: 2024-04-13
+location: francecentral
 name: ailyticsagent
-location: centralfrance
-kind: API
-sku: Standard
-
-containers:
+properties:
+  containers:
   - name: fastapiagent
-    image: docker.io/wiktorjakubowski/ailytics_agent:latest
-    ports:
-      - port: 8000
-        protocol: TCP
-    resources:
-      requests:
-        cpu: 1.0
-        memoryInGB: 1.5
-    imageRegistryCredentials:
-    - server: docker.io
-      username: wiktorjakubowski
-      password: <passworddockerhub>
-    restartPolicy: Never
-    ipAddress:
+    properties:
+      image: docker.io/wiktorjakubowski/ailytics_agent:latest
       ports:
-      - port: 443
+      - port: 8080
         protocol: TCP
-      - port: 80
-        protocol: TCP
-      type: Public
-      dnsNameLabel: ailyticsagent #FQDN
-
-identity:
-  type: SystemAssigned
-
-scaling:
-  auto:
-    minReplicas: 1
-    maxReplicas: 3
-    targetCPUUtilizationPercentage: 75
-
+      resources:
+        requests:
+          cpu: 2.0
+          memoryInGB: 1.5
+  imageRegistryCredentials:
+  - server: docker.io
+    username: wiktorjakubowski
+    password: <passworddockerhub>
+  restartPolicy: Never
+  ipAddress:
+    ports:
+    - port: 8080
+      protocol: TCP
+    type: Public
+    dnsNameLabel: ailyticsapi #FQDN
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
