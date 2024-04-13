@@ -11,6 +11,9 @@ properties:
         protocol: TCP
       - port: 443
         protocol: TCP
+      volumeMounts: # Array of volume mounts for the instance
+      - name: VOLUME_NAME
+        mountPath: /mnt/letsencrypt
       resources:
         requests:
           cpu: 2.0
@@ -28,6 +31,12 @@ properties:
       protocol: TCP
     type: Public
     dnsNameLabel: ailytics #FQDN
+  volumes: # Array of volumes available to the instances
+  - name: VOLUME_NAME
+    azureFile:
+      shareName:  # FILE SHARE NAME
+      storageAccountName:  # SA NAME
+      storageAccountKey: # SA PASSWORD
   osType: Linux
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
