@@ -8,8 +8,8 @@ from model import DBSingleton, LLM_Singleton
 db_singleton = DBSingleton()
 llm_singleton = LLM_Singleton()
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
 if "db_chain1" not in st.session_state:
     memory_0 = ConversationBufferMemory()

@@ -3,6 +3,7 @@ from langchain.agents import create_sql_agent
 from langchain.agents.agent_types import AgentType
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from langchain_community.callbacks import get_openai_callback
+
 from model import DBSingleton, LLM_Singleton
 
 st.set_page_config(
@@ -12,8 +13,8 @@ st.set_page_config(
 db_singleton = DBSingleton()
 llm_singleton = LLM_Singleton()
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "messages3" not in st.session_state:
+    st.session_state.messages3 = []
 
 if "agent_executor" not in st.session_state:
     agent_executor = create_sql_agent(
@@ -36,15 +37,15 @@ st.markdown(
 
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages3 = []
 
-for message in st.session_state.messages:
+for message in st.session_state.messages3:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 if prompt := st.chat_input("What is up?"):
     st.chat_message("user").markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages3.append({"role": "user", "content": prompt})
 
     with st.spinner("Thinking..."):
         with get_openai_callback() as cb:
@@ -57,4 +58,4 @@ if prompt := st.chat_input("What is up?"):
 
     with st.chat_message("assistant"):
         st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages3.append({"role": "assistant", "content": response})

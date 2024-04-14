@@ -1,8 +1,9 @@
 import streamlit as st
-from const import PROMPT
 from langchain.memory import ConversationBufferMemory
 from langchain_community.callbacks import get_openai_callback
 from langchain_experimental.sql import SQLDatabaseChain
+
+from const import PROMPT
 from model import DBSingleton, LLM_Singleton
 from utils import create_df, generate_plot
 
@@ -13,8 +14,8 @@ st.set_page_config(
 db_singleton = DBSingleton()
 llm_singleton = LLM_Singleton()
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "messages2" not in st.session_state:
+    st.session_state.messages2 = []
 
 if "db_chain2" not in st.session_state:
     memory_1 = ConversationBufferMemory()
@@ -47,16 +48,16 @@ def get_sql_query(user_query: str):
     return result["result"]
 
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if "messages2" not in st.session_state:
+    st.session_state.messages2 = []
 
-for message in st.session_state.messages:
+for message in st.session_state.messages2:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 if prompt := st.chat_input("What is up?"):
     st.chat_message("user").markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages2.append({"role": "user", "content": prompt})
 
     with st.spinner("Thinking..."):
         with get_openai_callback() as cb:
@@ -71,7 +72,7 @@ if prompt := st.chat_input("What is up?"):
 
     with st.chat_message("assistant"):
         st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages2.append({"role": "assistant", "content": response})
 
     df = create_df(response)
     print(df)
