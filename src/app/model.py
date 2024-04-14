@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from langchain.utilities import SQLDatabase
+from langchain_community.utilities import SQLDatabase
 from langchain_openai import AzureChatOpenAI
 from sqlalchemy import create_engine
 
@@ -28,7 +28,6 @@ class LLM_Singleton(Singleton):
     def __init__(self):
         AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY")
         OPENAI_API_VERSION = os.environ.get("OPENAI_API_VERSION")
-        AZURE_OPENAI_API_ENDPOINT = os.environ.get("AZURE_OPENAI_API_ENDPOINT")
         AZURE_OPENAI_DEPLOYMENT_NAME = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME")
 
         self.llm = AzureChatOpenAI(
