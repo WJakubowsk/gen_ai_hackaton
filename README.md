@@ -17,4 +17,4 @@ Risk analysis is perfomed in two-ways:
 This is performed using GitGuardian software. It checks for any vulnerabilities in the existing source code, including Common Vulnerabilities and Exposures, outdated libraries, license issues etc.
 
 2. Infrastructure risk analysis.
-This is performed using Azure Security Center. It is a service provided by Azure cloud to monitor deployed resources. It inspects vulnerabilities and suggests recommendations for provided resources.
+This is performed using Azure Cloud Defender for Cloud. It is a service provided by Azure cloud to monitor deployed resources. It inspects vulnerabilities and suggests recommendations for provided resources.
