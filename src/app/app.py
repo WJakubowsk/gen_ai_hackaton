@@ -1,15 +1,22 @@
-import os
-
 import requests
 import streamlit as st
-from dotenv import load_dotenv
+from const import PROMPT
+from langchain.memory import ConversationBufferMemory
+from langchain_community.callbacks import get_openai_callback
+from langchain_experimental.sql import SQLDatabaseChain
+from model import DBSingleton, LLM_Singleton
 
-load_dotenv()
-
-API_URL = os.environ.get("API_URL")
+db_singleton = DBSingleton()
+llm_singleton = LLM_Singleton()
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
+
+if "db_chain" not in st.session_state:
+    memory = ConversationBufferMemory()
+    db_chain = SQLDatabaseChain.from_llm(
+        llm_singleton.llm, db_singleton.db, prompt=PROMPT, verbose=True, memory=memory
+    )
 
 st.set_page_config(
     page_title="AIlytics Chatbot",
@@ -50,10 +57,10 @@ if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.spinner("Thinking..."):
-        try:
-            response = get_response(prompt)
-        except Exception:
-            response = "I'm sorry, I couldn't understand your query. Please try again."
+        with get_openai_callback() as cb:
+            response = db_chain.invoke(prompt)["result"]
+            cost = cb.total_cost if cb.total_cost > 0 else 0.005 * cb.completion_tokens
+            st.markdown(f"<small>Query cost: {cost}$</small>", unsafe_allow_html=True)
 
     with st.chat_message("assistant"):
         st.markdown(response)
