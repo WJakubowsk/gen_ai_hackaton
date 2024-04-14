@@ -15,6 +15,9 @@ properties:
         requests:
           cpu: 2.0
           memoryInGB: 1.5
+      environmentVariables:  
+        - name: API_URL
+          secureValue: <value>
   imageRegistryCredentials:
   - server: docker.io
     username: wiktorjakubowski
