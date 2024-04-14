@@ -8,9 +8,7 @@ Repository of Picipolo team for Accenture's TechFest Hackathon.
 * Łukasz Tomaszewski
 
 ## Installation
-The application is already provisioned and availble under the following [link](todo). To set it up yourself, follow the steps:
-1. Deploy GenAI model (based on LangChain Agent) per instructions in `agent-api` README.
-2. Deploy Streamlit application with chatbot (make sure to copy API URL as environment variable) per instructions in `app` README.
+The application is already provisioned and availble under the following [link](https://ailytics.francecentral.azurecontainer.io/). To set it up yourself, follow the steps of instructions in `src/` README.
 
 ## Risk Analysis
 
