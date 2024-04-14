@@ -1,0 +1,50 @@
+api-version: 2024-04-13
+location: <location>
+name: ailytics
+properties:
+  containers:
+  - name: streamlitapp
+    properties:
+      image: <container_registry>/<repository_name>/<image_name>:latest
+      ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 2.0
+          memoryInGB: 1.5
+      environmentVariables:
+        - name: OPENAI_API_VERSION
+          secureValue: <secret_value>
+        - name: AZURE_OPENAI_ENDPOINT
+          secureValue: <secret_value>
+        - name: AZURE_OPENAI_API_KEY
+          secureValue: <secret_value>
+        - name: AZURE_OPENAI_DEPLOYMENT_NAME
+          secureValue: <secret_value>
+        - name: SQL_USERNAME
+          secureValue: <secret_value>
+        - name: SQL_PASSWORD
+          secureValue: <secret_value>
+        - name: SQL_CONN_STR
+          secureValue: <secret_value>
+        - name: API_URL
+          secureValue: "http://localhost:8000/sql-azure-openai/invoke"
+  imageRegistryCredentials:
+  - server: <container_registry>
+    username: <repository_name>
+    password: <repository_password>
+  restartPolicy: Never
+  ipAddress:
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP
+    type: Public
+    dnsNameLabel: ailytics #FQDN
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
