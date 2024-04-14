@@ -41,3 +41,15 @@ We also expose port 8080 with the `-p 8080:8080` option.
 ```shell
 docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
 ```
+
+### Deployment
+
+Run following:
+```
+az login
+docker login # (log in to the docker hub)
+docker build -t <username>/<repository_name> .
+docker push <username>/<repository_name>
+az container create --resource-group <resource_group_name> --name ailyticsagent -f deployment.yml
+```
+
