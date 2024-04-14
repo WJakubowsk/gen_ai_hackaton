@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from langchain_community.utilities import SQLDatabase
+from langchain.utilities import SQLDatabase
 from langchain_openai import AzureChatOpenAI
 from sqlalchemy import create_engine
 

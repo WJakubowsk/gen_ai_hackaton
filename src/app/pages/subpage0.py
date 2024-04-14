@@ -1,13 +1,9 @@
 import streamlit as st
-from langchain.agents import create_sql_agent
-from langchain.agents.agent_types import AgentType
-from langchain_community.agent_toolkits import SQLDatabaseToolkit
+from const import PROMPT
+from langchain.memory import ConversationBufferMemory
 from langchain_community.callbacks import get_openai_callback
+from langchain_experimental.sql import SQLDatabaseChain
 from model import DBSingleton, LLM_Singleton
-
-st.set_page_config(
-    page_title="SQL Agent with Reasoning and Act framework (ReaAct) for Advanced Analytics and Interaction with Data",
-)
 
 db_singleton = DBSingleton()
 llm_singleton = LLM_Singleton()
@@ -15,20 +11,19 @@ llm_singleton = LLM_Singleton()
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-if "agent_executor" not in st.session_state:
-    agent_executor = create_sql_agent(
-        llm=llm_singleton.llm,
-        toolkit=SQLDatabaseToolkit(db=db_singleton.db, llm=llm_singleton.llm),
-        agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-        handle_parsing_errors=True,
-        verbose=False,
+if "db_chain1" not in st.session_state:
+    memory_0 = ConversationBufferMemory()
+    db_chain1 = SQLDatabaseChain.from_llm(
+        llm_singleton.llm,
+        db_singleton.db,
+        prompt=PROMPT,
+        verbose=True,
+        memory=memory_0,
     )
 
-st.warning("‼️‼️ Use only when data can be shared with the LLM model. ‼️‼️")
+
 st.title("AI analytics Chatbot 🤖")
-st.markdown(
-    "This page is for SQL Agent with Reasoning and Act framework (ReaAct) for Advanced Analytics and Interaction with Data"
-)
+st.markdown("This page is for SQL Chatbot with Memory")
 st.markdown("Welcome to AI-lytics: AI-powered analytics chatbot created by Picipolo!")
 st.markdown(
     "To get started, simply type your question about the data in the database, and I'll do my best to assist you."
@@ -49,9 +44,11 @@ if prompt := st.chat_input("What is up?"):
     with st.spinner("Thinking..."):
         with get_openai_callback() as cb:
             try:
-                response = agent_executor.invoke(prompt)["output"]
+                response = db_chain1.invoke(prompt)["result"]
             except Exception:
-                response = "I'm sorry, I couldn't understand your question. Could you please rephrase it?"
+                response = (
+                    "I'm sorry, I couldn't understand your question. Please try again."
+                )
             cost = cb.total_cost if cb.total_cost > 0 else 0.005 * cb.completion_tokens
             st.markdown(f"<small>Query cost: {cost}$</small>", unsafe_allow_html=True)
 
